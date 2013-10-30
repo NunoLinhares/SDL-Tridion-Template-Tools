@@ -1,4 +1,7 @@
 ﻿using System.Collections.Generic;
+using Tridion.ContentManager.CommunicationManagement;
+using Tridion.ContentManager.ContentManagement;
+using Tridion.ContentManager.ContentManagement.Fields;
 
 namespace Sdl.Tridion.Community.Regions
 {

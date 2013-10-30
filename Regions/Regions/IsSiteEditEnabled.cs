@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Text;
 using System.Xml;
+using Tridion.ContentManager;
+using Tridion.ContentManager.CommunicationManagement;
 
 namespace Sdl.Tridion.Community.Regions
 {

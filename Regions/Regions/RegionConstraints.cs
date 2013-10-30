@@ -1,4 +1,6 @@
-﻿namespace Sdl.Tridion.Community.Regions
+﻿using Tridion.ContentManager;
+
+namespace Sdl.Tridion.Community.Regions
 {
     public class RegionConstraints
     {
