@@ -1,0 +1,11 @@
+﻿<tcm:LogMessage xmlns:tcm="http://www.tridion.com/ContentManager/5.0" ID="2175">
+  <tcm:Data>
+    <tcm:Type>4</tcm:Type>
+    <tcm:Source>Workflow Service</tcm:Source>
+    <tcm:Category>Workflow</tcm:Category>
+    <tcm:Date>2012-03-16T15:43:37</tcm:Date>
+    <tcm:User>NT AUTHORITY\SYSTEM</tcm:User>
+    <tcm:Server>T2011GURUV3</tcm:Server>
+    <tcm:Message>Tridion Workflow Agent Service started</tcm:Message>
+  </tcm:Data>
+</tcm:LogMessage>
