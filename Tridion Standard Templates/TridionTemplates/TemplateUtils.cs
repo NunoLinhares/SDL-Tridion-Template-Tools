@@ -6,7 +6,6 @@ using Tridion.ContentManager;
 using Tridion.ContentManager.CommunicationManagement;
 using Tridion.ContentManager.ContentManagement;
 using Tridion.ContentManager.Publishing;
-using Tridion.ContentManager.Security;
 using Tridion.ContentManager.Templating;
 
 namespace TridionTemplates
@@ -19,7 +18,7 @@ namespace TridionTemplates
     {
 
         public const string ImagesFolderName = "assets";
-        protected static TemplatingLogger log = TemplatingLogger.GetLogger(typeof(TemplateUtils));
+        protected static TemplatingLogger Log = TemplatingLogger.GetLogger(typeof(TemplateUtils));
 
         private TemplateUtils() { }
 
@@ -44,10 +43,7 @@ namespace TridionTemplates
                 TcmUri transactionUri = new TcmUri(transactionId);
                 return new PublishTransaction(transactionUri, engine.GetSession());
             }
-            else
-            {
-                return FindPublishTransaction(engine, tcmUri);
-            }
+            return FindPublishTransaction(engine, tcmUri);
         }
 
         /// <summary>
@@ -59,7 +55,7 @@ namespace TridionTemplates
         /// <returns>PublishTransaction if found; or null, otherwise</returns>
         private static PublishTransaction FindPublishTransaction(Engine engine, String tcmUri)
         {
-            log.Debug(String.Format("Find PublishTransaction for item '{0}'", tcmUri));
+            Log.Debug(String.Format("Find PublishTransaction for item '{0}'", tcmUri));
 
             PublishTransaction result = null;
             Session session = engine.GetSession();
@@ -67,7 +63,7 @@ namespace TridionTemplates
 
             filter.PublishTransactionState = PublishTransactionState.Resolving;
             RepositoryLocalObject item = engine.GetObject(tcmUri) as RepositoryLocalObject;
-            filter.ForRepository = item.ContextRepository;
+            if (item != null) filter.ForRepository = item.ContextRepository;
 
             PublicationTarget publicationTarget = engine.PublishingContext.PublicationTarget;
             if (publicationTarget != null)
@@ -84,8 +80,8 @@ namespace TridionTemplates
             String xPath = String.Format("tcm:ListPublishTransactions/tcm:Item[@ItemID='{0}']", tcmUri);
             XmlNodeList nodeList = element.SelectNodes(xPath, namespaceManager);
 
-            String transactionId = null;
-            if (nodeList.Count == 1)
+            String transactionId;
+            if (nodeList != null && nodeList.Count == 1)
             {
                 transactionId = nodeList[0].Attributes["ID"].Value;
                 TcmUri transactionUri = new TcmUri(transactionId);
@@ -106,14 +102,14 @@ namespace TridionTemplates
                 }
             }
 
-            log.Debug("Returning PublishTransaction " + result);
+            Log.Debug("Returning PublishTransaction " + result);
             return result;
         }
 
         /// <summary>
         /// Try to identify if the given publish result contains the TcmUri to check
         /// </summary>
-        /// <param name="result">PublishTransaction to use</param>
+        /// <param name="transaction">The transaction to find.</param>
         /// <param name="tcmUri">String Tcm Uri to check</param>
         /// <returns>true if found; false, otherwise</returns>
         private static bool IsPublishTransactionForTcmUri(PublishTransaction transaction, String tcmUri)
@@ -150,14 +146,14 @@ namespace TridionTemplates
         /// <param name="state">PublishTransactionState the publish state to filter on</param>
         public static bool IsInPublishingQueue(Engine engine, String tcmUri, PublishTransactionState state)
         {
-            log.Debug(String.Format("Check Publishing queue for item '{0}'", tcmUri));
+            Log.Debug(String.Format("Check Publishing queue for item '{0}'", tcmUri));
 
             Session session = engine.GetSession();
             PublishTransactionsFilter filter = new PublishTransactionsFilter(session);
 
             filter.PublishTransactionState = state;
             RepositoryLocalObject item = engine.GetObject(tcmUri) as RepositoryLocalObject;
-            filter.ForRepository = item.ContextRepository;
+            if (item != null) filter.ForRepository = item.ContextRepository;
 
             PublicationTarget publicationTarget = engine.PublishingContext.PublicationTarget;
             if (publicationTarget != null)
