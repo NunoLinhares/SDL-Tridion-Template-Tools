@@ -13,7 +13,7 @@ using Tridion.ContentManager.Templating.Assembly;
 
 namespace TridionTemplates
 {
-    [TcmTemplateTitle("Get Site Navigation Xml")]
+    [TcmTemplateTitle("Get Site Navigation Xml (Structure Groups)")]
     public class StructureGroupNavigation : ITemplate
     {
         private int _countStructureGroups;

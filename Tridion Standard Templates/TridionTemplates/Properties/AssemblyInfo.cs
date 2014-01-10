@@ -35,5 +35,7 @@ using Tridion.ContentManager.Templating.Assembly;
 // [assembly: AssemblyVersion("1.0.*")]
 [assembly: AssemblyVersion("1.0.0.0")]
 [assembly: AssemblyFileVersion("1.0.0.0")]
-[assembly: TcmTargetFolder("/webdav/020%20Design/Building%20Blocks/System/CSharp%20Building%20Blocks")]
+// Standard Tridion Implementation Server:
+[assembly: TcmTargetFolder("/webdav/020%20Templates%20and%20Design/Building%20Blocks/System/Templates/Template%20Building%20Blocks/CSharp%20Building%20Blocks")]
+//[assembly: TcmTargetFolder("/webdav/020%20Design/Building%20Blocks/System/CSharp%20Building%20Blocks")]
 [assembly: TcmTemplateTitle("CSharp Building Block Assembly")]
