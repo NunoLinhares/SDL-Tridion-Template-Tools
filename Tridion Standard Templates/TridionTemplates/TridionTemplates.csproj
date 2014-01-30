@@ -74,7 +74,10 @@
     <Compile Include="GetSiteVariables.cs" />
     <Compile Include="GroupComponentsByTemplate.cs" />
     <Compile Include="IsSiteEditEnabled.cs" />
+    <Compile Include="Navigation\Navigation.cs" />
+    <Compile Include="Navigation\Node.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RemoveDynamicVersionFromUri.cs" />
     <Compile Include="RenderAllComponentPresentations.cs" />
     <Compile Include="RenderCode.cs" />
     <Compile Include="ResolvePageUrisForLinks.cs" />

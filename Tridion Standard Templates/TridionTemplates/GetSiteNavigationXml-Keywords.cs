@@ -1,17 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.IO;
+﻿using System.IO;
 using System.Text;
-using System.Text.RegularExpressions;
 using System.Xml;
 using Tridion.ContentManager;
-using Tridion.ContentManager.CommunicationManagement;
 using Tridion.ContentManager.ContentManagement;
-using Tridion.ContentManager.ContentManagement.Fields;
 using Tridion.ContentManager.Templating;
 using Tridion.ContentManager.Templating.Assembly;
-using Tridion.ContentManager.Templating.Configuration;
 
 namespace TridionTemplates
 {
@@ -61,17 +54,17 @@ namespace TridionTemplates
     internal class NavigationNode
     {
         internal Keyword Keyword;
-        private XmlDocument _keywordMeta;
+        private readonly XmlDocument _keywordMeta;
         private TemplatingLogger _log;
-        private XmlNamespaceManager _nm;
-        private string _xpathBase = "/meta:Metadata/meta:Navigation/meta:";
+        private readonly XmlNamespaceManager _nm;
+        private const string XpathBase = "/meta:Metadata/meta:Navigation/meta:";
 
         internal NavigationNode(Keyword keyword)
         {
             Keyword = keyword;
             _keywordMeta = new XmlDocument();
             _keywordMeta.LoadXml(keyword.Metadata.OuterXml);
-             _nm = new XmlNamespaceManager(new NameTable());
+            _nm = new XmlNamespaceManager(new NameTable());
             _nm.AddNamespace("meta", keyword.MetadataSchema.NamespaceUri);
             _log = TemplatingLogger.GetLogger(GetType());
         }
@@ -89,7 +82,7 @@ namespace TridionTemplates
         {
             get
             {
-                string xpath = _xpathBase + "IncludeInNavigation";
+                const string xpath = XpathBase + "IncludeInNavigation";
                 XmlNode node = _keywordMeta.SelectSingleNode(xpath, _nm);
                 if (node == null) return false;
                 if (node.InnerText == "Yes") return true;
@@ -109,9 +102,10 @@ namespace TridionTemplates
 
         private string GetNodeValue(string fieldName)
         {
-            string xpath = _xpathBase + fieldName;
+            string xpath = XpathBase + fieldName;
             XmlNode node = _keywordMeta.SelectSingleNode(xpath, _nm);
-            return node == null ? string.Empty : node.InnerText;
+            string result = node == null ? string.Empty : node.InnerText;
+            return result;
         }
     }
 
